@@ -14,10 +14,22 @@ class EmailList extends Component {
         'fishfan29@hotmail.com'
       ]
     }
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange(event){
+    let content = event.target.value;
+    //console.log(content);
+    let arr = content.split('\n');
+    this.setState({
+      arr:arr
+    })
+    //console.log(this.state);
+    this.props.onChange('emailList', this.state.arr);
+  }
   render() {
-    let emails = this.state.arr.join('\r\n');
+    let emails = this.state.arr.join('\n');
     
     //console.log(this.state.arr);
     //console.log(emails);
@@ -26,9 +38,8 @@ class EmailList extends Component {
       
         <div class="card-body">
           <h5 class="card-title">Danh sách Email</h5>
-          <TextareaAutosize class="form-control">
-          {emails}
-          </TextareaAutosize>
+          <TextareaAutosize class="form-control" value={emails} onChange={this.handleChange}/>
+          
         </div>
       </div>
     );
